@@ -1,149 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-OCPP Central System service description
-Version 1.5 draft for approval (1.5 RC4)
-
-Copyright e-laad.nl. Free to use without modifications.
-
-See: http://ev-services.net/ocpp/
--->
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
-                  xmlns:s="http://www.w3.org/2001/XMLSchema"
-                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
-                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
-                  xmlns:tns="urn://Ocpp/Cs/2012/06/"
-                  targetNamespace="urn://Ocpp/Cs/2012/06/"
-                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-                  xmlns:wsa="http://www.w3.org/2005/08/addressing"
-                  xmlns:wsp="http://schemas.xmlsoapf.org/ws/2004/09/policy"
-                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:tns="urn://Ocpp/Cs/2012/06/"
+	targetNamespace="urn://Ocpp/Cs/2012/06/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:wsa="http://www.w3.org/2005/08/addressing"
+	xmlns:wsp="http://schemas.xmlsoapf.org/ws/2004/09/policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
 
-  <wsp:Policy wsu:Id="ServicePolicy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <wsaw:UsingAddressing/>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
+	<wsp:Policy wsu:Id="ServicePolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<wsaw:UsingAddressing/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
 
 	<wsdl:types>
-    <s:schema targetNamespace="urn://Ocpp/Cs/2012/06/" elementFormDefault="qualified">
+		<s:schema targetNamespace="urn://Ocpp/Cs/2012/06/" elementFormDefault="qualified">
 
-      <!-- Begin of types shared with ChargePointService -->
-      <s:simpleType name="IdToken">
-        <s:annotation>
-          <s:documentation>Type of string defining identification token, e.g. RFID or credit card number. To be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="20"/>
-        </s:restriction>
-      </s:simpleType>
+			<!-- Begin of types shared with ChargePointService -->
+			<s:simpleType name="IdToken">
+				<s:annotation>
+					<s:documentation>Type of string defining identification token, e.g. RFID or credit card number. To be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="20"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="AuthorizationStatus">
-        <s:annotation>
-          <s:documentation>Defines the authorization-status-value</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:enumeration value="Accepted"/>
-          <s:enumeration value="Blocked"/>
-          <s:enumeration value="Expired"/>
-          <s:enumeration value="Invalid"/>
-          <s:enumeration value="ConcurrentTx"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="AuthorizationStatus">
+				<s:annotation>
+					<s:documentation>Defines the authorization-status-value</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:enumeration value="Accepted"/>
+					<s:enumeration value="Blocked"/>
+					<s:enumeration value="Expired"/>
+					<s:enumeration value="Invalid"/>
+					<s:enumeration value="ConcurrentTx"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:complexType name="IdTagInfo">
-        <s:sequence>
-          <s:element name="status" type="tns:AuthorizationStatus" minOccurs="1" maxOccurs="1"/>
-          <s:element name="expiryDate" type="s:dateTime" minOccurs="0" maxOccurs="1"/>
-          <s:element name="parentIdTag" type="tns:IdToken" minOccurs="0" maxOccurs="1"/>
-        </s:sequence>
-      </s:complexType>
-      <!-- End of types shared with ChargePointService -->
+			<s:complexType name="IdTagInfo">
+				<s:sequence>
+					<s:element name="status" type="tns:AuthorizationStatus" minOccurs="1" maxOccurs="1"/>
+					<s:element name="expiryDate" type="s:dateTime" minOccurs="0" maxOccurs="1"/>
+					<s:element name="parentIdTag" type="tns:IdToken" minOccurs="0" maxOccurs="1"/>
+				</s:sequence>
+			</s:complexType>
+			<!-- End of types shared with ChargePointService -->
 
-      <s:simpleType name="ChargeBoxSerialNumber">
-        <s:annotation>
-          <s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="25"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="ChargeBoxSerialNumber">
+				<s:annotation>
+					<s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="25"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="ChargePointModel">
-        <s:annotation>
-          <s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="20"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="ChargePointModel">
+				<s:annotation>
+					<s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="20"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="ChargePointSerialNumber">
-        <s:annotation>
-          <s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="25"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="ChargePointSerialNumber">
+				<s:annotation>
+					<s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="25"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="ChargePointVendor">
-        <s:annotation>
-          <s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="20"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="ChargePointVendor">
+				<s:annotation>
+					<s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="20"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="FirmwareVersion">
-        <s:annotation>
-          <s:documentation>String type of max 50 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="50"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="FirmwareVersion">
+				<s:annotation>
+					<s:documentation>String type of max 50 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="50"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="IccidString">
-        <s:annotation>
-          <s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="20"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="IccidString">
+				<s:annotation>
+					<s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="20"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="ImsiString">
-        <s:annotation>
-          <s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="20"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="ImsiString">
+				<s:annotation>
+					<s:documentation>String type of max 20 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="20"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="MeterSerialNumber">
-        <s:annotation>
-          <s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="25"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="MeterSerialNumber">
+				<s:annotation>
+					<s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="25"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:simpleType name="MeterType">
-        <s:annotation>
-          <s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
-        </s:annotation>
-        <s:restriction base="s:string">
-          <s:maxLength value="25"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="MeterType">
+				<s:annotation>
+					<s:documentation>String type of max 25 chars that is to be treated as case insensitive.</s:documentation>
+				</s:annotation>
+				<s:restriction base="s:string">
+					<s:maxLength value="25"/>
+				</s:restriction>
+			</s:simpleType>
 
 			<s:complexType name="AuthorizeRequest">
 				<s:annotation>
@@ -287,15 +279,15 @@ See: http://ev-services.net/ocpp/
 				</s:restriction>
 			</s:simpleType>
 
-      <s:simpleType name="Location">
-        <s:restriction base="s:string">
-          <s:enumeration value="Inlet"/>
-          <s:enumeration value="Outlet"/>
-          <s:enumeration value="Body"/>
-        </s:restriction>
-      </s:simpleType>
+			<s:simpleType name="Location">
+				<s:restriction base="s:string">
+					<s:enumeration value="Inlet"/>
+					<s:enumeration value="Outlet"/>
+					<s:enumeration value="Body"/>
+				</s:restriction>
+			</s:simpleType>
 
-      <s:complexType name="MeterValue">
+			<s:complexType name="MeterValue">
 				<s:annotation>
 					<s:documentation>Defines single value of the meter-value-value</s:documentation>
 				</s:annotation>
@@ -305,11 +297,11 @@ See: http://ev-services.net/ocpp/
 						<s:complexType>
 							<s:simpleContent>
 								<s:extension base="s:string">
-                  <s:attribute name="context" type="tns:ReadingContext" use="optional"/> <!-- default="Sample.Periodic" -->
-                  <s:attribute name="format" type="tns:ValueFormat" use="optional"/> <!-- default="Raw" -->
-                  <s:attribute name="measurand" type="tns:Measurand" use="optional"/> <!-- default="Energy.Active.Import.Register" -->
-                  <s:attribute name="location" type="tns:Location" use="optional"/> <!-- default="Outlet" -->
-                  <s:attribute name="unit" type="tns:UnitOfMeasure" use="optional"/> <!-- default="Wh" -->
+									<s:attribute name="context" type="tns:ReadingContext" use="optional"/> <!-- default="Sample.Periodic" -->
+									<s:attribute name="format" type="tns:ValueFormat" use="optional"/> <!-- default="Raw" -->
+									<s:attribute name="measurand" type="tns:Measurand" use="optional"/> <!-- default="Energy.Active.Import.Register" -->
+									<s:attribute name="location" type="tns:Location" use="optional"/> <!-- default="Outlet" -->
+									<s:attribute name="unit" type="tns:UnitOfMeasure" use="optional"/> <!-- default="Wh" -->
 								</s:extension>
 							</s:simpleContent>
 						</s:complexType>
@@ -745,12 +737,12 @@ See: http://ev-services.net/ocpp/
 		</wsdl:operation>
 	</wsdl:binding>
 
-  <!-- The OCPP Central System Service -->
+	<!-- The OCPP Central System Service -->
 	<wsdl:service name="CentralSystemService">
 		<wsdl:documentation>The Central System Service for the Open Charge Point Protocol</wsdl:documentation>
 		<wsdl:port name="CentralSystemServiceSoap12" binding="tns:CentralSystemServiceSoap">
-      <!-- <soap12:address location="http://localhost/Ocpp/CentralSystemService/"/> -->
-			<soap12:address location="http://127.0.0.1:9220/Ocpp/CentralSystemService"/>
+			<!-- <soap12:address location="http://localhost/Ocpp/CentralSystemService/"/> -->
+			<soap12:address location="http://localhost:9220/Ocpp/CentralSystemService/"/>
 		</wsdl:port>
 	</wsdl:service>
 

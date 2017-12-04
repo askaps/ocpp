@@ -59,13 +59,27 @@ class CentralSystem{
 
       this._updateSoapHeaders(stationId, remoteAddress);
 
-      var request = {
-        clearCacheRequest: {}
+      var client = this._getClientByEndpoint(remoteAddress);
+
+      if(client){
+        var soapClient = client.client;
+
+        var request = {
+          clearCacheRequest: {}
+        }
+
+        soapClient.ClearCache(request, function(result){
+          console.log(JSON.stringify(result));
+        });
+      }else{
+        console.log(`[SOAP Request] Client for ${remoteAddress} is not found !`);
       }
 
-      this.chargePointClient.ClearCache(request, function(result){
+
+
+      /*this.chargePointClient.ClearCache(request, function(result){
         console.log(JSON.stringify(result));
-      });
+      });*/
     }
 
     changeAvailability(stationId, remoteAddress, data){
@@ -190,7 +204,7 @@ class CentralSystem{
           }
         }
 
-        this.chargePointClient.UnlockConnector(request, function(result){
+        soapClient.UnlockConnector(request, function(result){
           console.log(JSON.stringify(result));
         });
       }else{

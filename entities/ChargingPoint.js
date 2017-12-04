@@ -68,6 +68,7 @@ class ChargingPoint {
 
         this.client.Heartbeat(request, function(err, result) {
             if (err) {
+                console.log(err.Fault);
                 console.log('[ChargingPoint] ERROR Central System ' + err);
             } else {
                 console.log('[ChargingPoint] Heartbeat Result ' + JSON.stringify(result));
@@ -167,6 +168,8 @@ class ChargingPoint {
 
         this.client.Authorize(request, function(err, result) {
             if (err) {
+                //console.log(err.Fault);
+                console.log(err);
                 console.log('[ChargingPoint] ERROR Central System ' + err);
             } else {
                 console.log('[ChargingPoint] Authorize Result ' + JSON.stringify(result));

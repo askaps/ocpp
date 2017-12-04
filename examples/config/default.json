@@ -1,0 +1,14 @@
+{
+    "defaultDB": "mongodb",
+    "mongodb": {
+        "url": "mongodb://localhost/ocpp"
+    },
+    "firebase": {
+      "apiKey": "AIzaSyCqpKj8QD_u8Lp1LUkfikHs9GaJYk9vPAg",
+      "authDomain": "ocpp-3b748.firebaseapp.com",
+      "databaseURL": "https://ocpp-3b748.firebaseio.com",
+      "storageBucket": "gs://ocpp-3b748.appspot.com",
+      "messagingSenderId": "143317728871",
+      "projectId": "ocpp-3b748"
+  }
+}

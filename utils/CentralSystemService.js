@@ -5,6 +5,7 @@ var CentralSystemService = {
     CentralSystemService: {
         CentralSystemServiceSoap12: {
             Authorize: function(args, callback, headers, req) {
+                console.log('[Info] Authorize in progress');
                 args.chargeBoxIdentity = headers.chargeBoxIdentity;
                 args.endpoint = Utils.getEndpoint(headers.From.Address, req.connection.remoteAddress);
                 handlers.Authorize.handle(args).then(function(data) {
